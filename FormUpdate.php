@@ -36,11 +36,11 @@
 				$color = $_POST['color'];
 			}
 			if($validate){
-				$db = mysqli_connect('localhost','root','',start);
+				$db = mysqli_connect('localhost','root','','start');
 				$sql = sprintf("UPDATE users SET name='%s', gender='%s', color='%s' WHERE id=%s",
 					mysqli_escape_string($db, $name),
-					mysqli_escape_string($db, $color),
 					mysqli_escape_string($db, $gender),
+					mysqli_escape_string($db, $color),
 					$id);
 				mysqli_query($db,$sql);
 				echo '<p>User updated.</p>';
@@ -48,7 +48,7 @@
 			}
 
 		} else {
-			$db = mysqli_connect('localhost','root','','php');
+			$db = mysqli_connect('localhost','root','','start');
 			$sql = sprintf('SELECT * FROM users WHERE id=%s',$id);
 			$result = mysqli_query($db,$sql);
 			foreach ($result as $row) {
