@@ -2,7 +2,7 @@
 	if(isset($_GET['id']) && ctype_digit($_GET['id'])){
 		$id = $_GET['id'];
 	} else {
-		header('location: formDataBase.php');
+		header('location: FormInsert.php');
 	}	
 ?>
 
