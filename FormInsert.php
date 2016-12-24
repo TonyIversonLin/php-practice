@@ -6,9 +6,12 @@
 
 <body>
 	<?php
+		readfile('navigation.tmpl.html');
+
 		$name = '';
 		$gender = '';
 		$color = '';
+		$password='';
 
 		if(isset($_POST['submit'])){
 			//form valication on Server side
@@ -17,6 +20,11 @@
 				$validate = false;
 			} else {
 				$name = $_POST['name'];
+			}
+			if(!isset($_POST['password']) || $_POST['password']===''){
+				$validate = false;
+			} else {
+				$password = $_POST['password'];
 			}
 			if(!isset($_POST['gender']) || $_POST['gender']===''){
 				$validate = false;
@@ -29,12 +37,16 @@
 				$color = $_POST['color'];
 			}
 
+			//password hashing
+			$hash = password_hash($password,PASSWORD_DEFAULT);
+
 			//saving data to database
 			if($validate){
 				$db= mysqli_connect('localhost','root','','start');
-				$sql = sprintf("INSERT INTO users (name, gender, color) VALUES (
-						'%s','%s','%s'
+				$sql = sprintf("INSERT INTO users (name, password ,gender, color) VALUES (
+						'%s','%s','%s','%s'
 					)",mysqli_escape_string($db,$name),
+						 mysqli_escape_string($db,$hash),
 						 mysqli_escape_string($db,$gender),
 						 mysqli_escape_string($db,$color));
 				mysqli_query($db, $sql);
@@ -49,6 +61,8 @@
 		User name: <input type="text" name="name" value="<?php 
 			echo htmlspecialchars($name);
 		?>"><br>
+
+		Password: <input type="password" name="password"><br>
 		
 		Gender:
 			<input type="radio" name="gender" value="female" <?php 

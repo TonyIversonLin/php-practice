@@ -1,4 +1,5 @@
 <?php
+	require' auth.php';
 	if(isset($_GET['id']) && ctype_digit($_GET['id'])){
 		$id = $_GET['id'];
 	}else {
@@ -13,6 +14,7 @@
 </head>
 <body>
 	<?php
+		readfile('navigation.tmpl.html');
 		$db = mysqli_connect('localhost','root','','start');
 		$sql = "DELETE FROM users WHERE id=$id";
 		mysqli_query($db,$sql);

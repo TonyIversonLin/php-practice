@@ -4,6 +4,9 @@
 	<title>PHP select</title>
 </head>
 <body>
+	<?php
+		readfile('navigation.tmpl.html');
+	?>
 	<ul>
 		<?php 
 
